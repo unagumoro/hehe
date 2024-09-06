@@ -7,9 +7,14 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -23,7 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.edu.up.planner.ui.screens.PrimeiraTela
 import br.edu.up.planner.ui.screens.SegundaTela
+import br.edu.up.planner.ui.theme.CorDoTitulo
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(
     device = Devices.PIXEL
 )
@@ -32,6 +39,29 @@ import br.edu.up.planner.ui.screens.SegundaTela
 //)
 @Composable
 fun PlannerApp(){
+
+    val tela = remember { mutableStateOf(1) }
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {Text(text = "Planner", fontSize = 40.sp)},
+                colors = TopAppBarDefaults.topAppBarColors(CorDoTitulo)
+                )
+        },
+
+        content = { padding ->
+            Text(text = "Conteúdo",
+                Modifier.padding(padding),
+                fontSize = 50.sp)
+        }
+    )
+
+}
+
+
+@Composable
+fun PlannerAppManual(){
 
     val tela = remember { mutableStateOf(1) }
 
