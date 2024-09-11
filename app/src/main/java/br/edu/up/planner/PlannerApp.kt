@@ -3,21 +3,41 @@ package br.edu.up.planner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Call
+import androidx.compose.material.icons.filled.Face
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import br.edu.up.planner.ui.screens.PrimeiraTela
 import br.edu.up.planner.ui.screens.SegundaTela
 import br.edu.up.planner.ui.theme.CorDoTitulo
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(
@@ -40,24 +61,128 @@ import br.edu.up.planner.ui.theme.CorDoTitulo
 @Composable
 fun PlannerApp(){
 
-    val tela = remember { mutableStateOf(1) }
+    val drawerState = rememberDrawerState(
+        initialValue = DrawerValue.Closed)
 
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {Text(text = "Planner", fontSize = 40.sp)},
-                colors = TopAppBarDefaults.topAppBarColors(CorDoTitulo)
-                )
-        },
-
-        content = { padding ->
-            Text(text = "Conteúdo",
-                Modifier.padding(padding),
-                fontSize = 50.sp)
-        }
+    ModalNavigationDrawer(
+        drawerState = drawerState,
+        drawerContent = { DrawerContent() },
+        content = { TarefasScreen(drawerState) }
     )
-
 }
+
+@Composable
+private fun DrawerContent() {
+    Column(
+        modifier = Modifier
+            .width(300.dp)
+            .background(Color.White)
+            .padding(30.dp)
+            .fillMaxHeight()
+    ) {
+        Spacer(modifier = Modifier.height(70.dp))
+        Text(text = "Item 1", fontSize = 30.sp)
+        Text(text = "Item 2", fontSize = 30.sp)
+        Text(text = "Item 3", fontSize = 30.sp)
+    }
+}
+
+@Composable
+private fun TarefasScreen(drawerState: DrawerState) {
+    Scaffold(
+        topBar = { TopBarMinina(drawerState) },
+        content = { padding -> ConteudoPrincipal(padding) },
+        floatingActionButton = { FloatButton() },
+        bottomBar = { BottomAppBarMinima() }
+    )
+}
+
+@Composable
+private fun BottomAppBarMinima() {
+    BottomAppBar(
+        containerColor = Color(0xFF98D2FF)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                imageVector = Icons.Default.Call,
+                contentDescription = "c",
+                modifier = Modifier.size(40.dp)
+            )
+            Spacer(modifier = Modifier.width(40.dp))
+            Icon(
+                imageVector = Icons.Default.Face,
+                contentDescription = "f",
+                modifier = Modifier.size(40.dp)
+            )
+            Spacer(modifier = Modifier.width(40.dp))
+            Icon(
+                imageVector = Icons.Default.Build,
+                contentDescription = "b",
+                modifier = Modifier.size(40.dp)
+            )
+        }
+
+    }
+}
+
+@Composable
+private fun FloatButton() {
+    FloatingActionButton(onClick = { }) {
+        Icon(
+            imageVector = Icons.Default.Add,
+            contentDescription = "+"
+        )
+    }
+}
+
+@Composable
+private fun ConteudoPrincipal(padding: PaddingValues) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = "Conteúdo",
+            Modifier.padding(padding),
+            fontSize = 40.sp
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TopBarMinina(drawerState: DrawerState){
+
+    val escopo = rememberCoroutineScope()
+
+    TopAppBar(
+        navigationIcon = {
+            IconButton(onClick = {
+                escopo.launch {
+                    drawerState.open()
+                }
+            }) {
+                Icon(
+                    imageVector = Icons.Default.Menu,
+                    contentDescription = "=",
+                    tint = Color.White,
+                    modifier = Modifier.size(40.dp))
+            }
+        },
+        title = {Text(text = "Planner", fontSize = 40.sp,
+            color = Color.White,
+            fontWeight = FontWeight(600))},
+        colors = TopAppBarDefaults.topAppBarColors(CorDoTitulo)
+    )
+}
+
+
+
+
 
 
 @Composable
