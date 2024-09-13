@@ -24,12 +24,12 @@ import kotlinx.coroutines.launch
 @Composable
 fun PlannerTopBar(drawerState: DrawerState){
 
-    val escopo = rememberCoroutineScope()
+    val coroutineScope = rememberCoroutineScope()
 
     TopAppBar(
         navigationIcon = {
             IconButton(onClick = {
-                escopo.launch {
+                coroutineScope.launch {
                     drawerState.open()
                 }
             }) {
