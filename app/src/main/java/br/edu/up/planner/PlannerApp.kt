@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.rememberNavController
 import br.edu.up.planner.ui.screens.TelaDois
 import br.edu.up.planner.ui.screens.TelaTres
 import br.edu.up.planner.ui.screens.TelaUm
@@ -31,13 +32,15 @@ fun PlannerApp(){
     val drawerState = rememberDrawerState(
         initialValue = DrawerValue.Closed)
 
+    val navController = rememberNavController()
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
             DrawerContent()
         },
         content = {
-            TelaTres(drawerState)
+            TelaUm(drawerState)
         }
     )
 }
