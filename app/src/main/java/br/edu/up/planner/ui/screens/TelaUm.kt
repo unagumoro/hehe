@@ -19,6 +19,7 @@ import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -49,7 +51,7 @@ fun TelaUm(drawerState: DrawerState) {
             NavHost(
                 navController = navController,
                 startDestination = TelaUm.TELA_UM_C_ROUTE
-            ){
+            ) {
                 composable(TelaUm.TELA_UM_A_ROUTE) {
                     TelaUmA(padding)
                 }
@@ -62,12 +64,12 @@ fun TelaUm(drawerState: DrawerState) {
             }
         },
         floatingActionButton = { FloatButton() },
-        bottomBar = { BottomAppBarMinima() }
+        bottomBar = { BottomAppBarMinima(navController) }
     )
 }
 
 @Composable
-private fun BottomAppBarMinima() {
+private fun BottomAppBarMinima(navController: NavController) {
     BottomAppBar(
         containerColor = Color(0xFF98D2FF)
     ) {
@@ -75,25 +77,39 @@ private fun BottomAppBarMinima() {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
-            Icon(
-                imageVector = Icons.Default.Call,
-                contentDescription = "c",
-                modifier = Modifier.size(40.dp)
-            )
+            IconButton(
+                onClick = {
+                    navController.navigate(TelaUm.TELA_UM_A_ROUTE)
+                }) {
+                Icon(
+                    imageVector = Icons.Default.Call,
+                    contentDescription = "c",
+                    modifier = Modifier.size(40.dp)
+                )
+            }
             Spacer(modifier = Modifier.width(40.dp))
-            Icon(
-                imageVector = Icons.Default.Face,
-                contentDescription = "f",
-                modifier = Modifier.size(40.dp)
-            )
+            IconButton(
+                onClick = {
+                    navController.navigate(TelaUm.TELA_UM_B_ROUTE)
+                }) {
+                Icon(
+                    imageVector = Icons.Default.Face,
+                    contentDescription = "f",
+                    modifier = Modifier.size(40.dp)
+                )
+            }
             Spacer(modifier = Modifier.width(40.dp))
-            Icon(
-                imageVector = Icons.Default.Build,
-                contentDescription = "b",
-                modifier = Modifier.size(40.dp)
-            )
+            IconButton(
+                onClick = {
+                    navController.navigate(TelaUm.TELA_UM_C_ROUTE)
+                }) {
+                Icon(
+                    imageVector = Icons.Default.Build,
+                    contentDescription = "b",
+                    modifier = Modifier.size(40.dp)
+                )
+            }
         }
-
     }
 }
 
