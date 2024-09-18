@@ -33,7 +33,7 @@ import br.edu.up.planner.ui.screens.util.PlannerTopBar
 fun TelaTres(drawerState: DrawerState) {
     Scaffold(
         topBar = { PlannerTopBar(drawerState) },
-        content = { padding -> ConteudoPrincipal(padding) },
+        content = { padding -> TelaUmA(padding) },
         floatingActionButton = { FloatButton() },
         bottomBar = { BottomAppBarMinima() }
     )
@@ -81,7 +81,7 @@ private fun FloatButton() {
 }
 
 @Composable
-private fun ConteudoPrincipal(padding: PaddingValues) {
+private fun TelaTres(padding: PaddingValues) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,

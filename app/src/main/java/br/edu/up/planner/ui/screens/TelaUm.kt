@@ -27,13 +27,40 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import br.edu.up.planner.ui.screens.util.PlannerTopBar
+
+object TelaUm {
+    val TELA_UM_A_ROUTE = "t1a"
+    val TELA_UM_B_ROUTE = "t1b"
+    val TELA_UM_C_ROUTE = "t1c"
+}
 
 @Composable
 fun TelaUm(drawerState: DrawerState) {
+
+    val navController = rememberNavController()
+
     Scaffold(
         topBar = { PlannerTopBar(drawerState) },
-        content = { padding -> ConteudoPrincipal(padding) },
+        content = { padding ->
+            NavHost(
+                navController = navController,
+                startDestination = TelaUm.TELA_UM_C_ROUTE
+            ){
+                composable(TelaUm.TELA_UM_A_ROUTE) {
+                    TelaUmA(padding)
+                }
+                composable(TelaUm.TELA_UM_B_ROUTE) {
+                    TelaUmB(padding)
+                }
+                composable(TelaUm.TELA_UM_C_ROUTE) {
+                    TelaUmC(padding)
+                }
+            }
+        },
         floatingActionButton = { FloatButton() },
         bottomBar = { BottomAppBarMinima() }
     )
@@ -79,19 +106,3 @@ private fun FloatButton() {
         )
     }
 }
-
-@Composable
-private fun ConteudoPrincipal(padding: PaddingValues) {
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Text(
-            text = "Tela 1",
-            Modifier.padding(padding),
-            fontSize = 40.sp
-        )
-    }
-}
-
