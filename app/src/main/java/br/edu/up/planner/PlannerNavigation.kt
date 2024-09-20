@@ -8,8 +8,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Call
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
@@ -49,21 +47,21 @@ object PlannerRotas {
     device = Devices.PIXEL
 )
 @Composable
-fun PlannerApp(){
+fun PlannerNavigation(){
 
     val drawerState = rememberDrawerState(
         initialValue = DrawerValue.Closed)
 
-    val navController = rememberNavController()
+    val navCtrlDrawer = rememberNavController()
 
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
-            DrawerContent(navController, drawerState)
+            DrawerContent(navCtrlDrawer, drawerState)
         },
         content = {
             NavHost(
-                navController = navController,
+                navController = navCtrlDrawer,
                 startDestination = PlannerRotas.TELA_UM_ROTA)
             {
                 composable(PlannerRotas.TELA_UM_ROTA) {
