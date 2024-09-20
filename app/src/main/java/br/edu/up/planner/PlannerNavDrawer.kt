@@ -31,15 +31,15 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import br.edu.up.planner.ui.screens.TelaDois
-import br.edu.up.planner.ui.screens.TelaTres
-import br.edu.up.planner.ui.screens.TelaUm
+import br.edu.up.planner.ui.screens.projetos.TelaProjetos
+import br.edu.up.planner.ui.screens.financas.TelaFinancas
+import br.edu.up.planner.ui.screens.tarefas.TarefasNavHost
 import kotlinx.coroutines.launch
 
 object PlannerRotas {
-    val TELA_UM_ROTA = "tela_um"
-    val TELA_DOIS_ROTA = "tela_dois"
-    val TELA_TRES_ROTA = "tela_tres"
+    val TELA_TAREFAS_ROTA = "tela_um"
+    val TELA_PROJETOS_ROTA = "tela_dois"
+    val TELA_FINANCAS_ROTA = "tela_tres"
 }
 
 
@@ -47,7 +47,7 @@ object PlannerRotas {
     device = Devices.PIXEL
 )
 @Composable
-fun PlannerNavigation(){
+fun PlannerNavDrawer(){
 
     val drawerState = rememberDrawerState(
         initialValue = DrawerValue.Closed)
@@ -62,16 +62,16 @@ fun PlannerNavigation(){
         content = {
             NavHost(
                 navController = navCtrlDrawer,
-                startDestination = PlannerRotas.TELA_UM_ROTA)
+                startDestination = PlannerRotas.TELA_TAREFAS_ROTA)
             {
-                composable(PlannerRotas.TELA_UM_ROTA) {
-                    TelaUm(drawerState)
+                composable(PlannerRotas.TELA_TAREFAS_ROTA) {
+                    TarefasNavHost(drawerState)
                 }
-                composable(PlannerRotas.TELA_DOIS_ROTA) {
-                    TelaDois(drawerState)
+                composable(PlannerRotas.TELA_PROJETOS_ROTA) {
+                    TelaProjetos(drawerState)
                 }
-                composable(PlannerRotas.TELA_TRES_ROTA) {
-                    TelaTres(drawerState)
+                composable(PlannerRotas.TELA_FINANCAS_ROTA) {
+                    TelaFinancas(drawerState)
                 }
             }
         }
@@ -87,11 +87,11 @@ private fun DrawerContent(
     val coroutineScope = rememberCoroutineScope()
 
     val currentBack by navController.currentBackStackEntryAsState()
-    val rotaAtual = currentBack?.destination?.route ?: PlannerRotas.TELA_UM_ROTA
+    val rotaAtual = currentBack?.destination?.route ?: PlannerRotas.TELA_TAREFAS_ROTA
 
-    val ehRotaUm = rotaAtual == PlannerRotas.TELA_UM_ROTA
-    val ehRotaDois = rotaAtual == PlannerRotas.TELA_DOIS_ROTA
-    val ehRotaTres = rotaAtual == PlannerRotas.TELA_TRES_ROTA
+    val ehRotaUm = rotaAtual == PlannerRotas.TELA_TAREFAS_ROTA
+    val ehRotaDois = rotaAtual == PlannerRotas.TELA_PROJETOS_ROTA
+    val ehRotaTres = rotaAtual == PlannerRotas.TELA_FINANCAS_ROTA
 
     Column(
         modifier = Modifier
@@ -107,7 +107,7 @@ private fun DrawerContent(
                 containerColor = getColorMenu(ehRotaUm)
             ),
             onClick = {
-                navController.navigate(PlannerRotas.TELA_UM_ROTA)
+                navController.navigate(PlannerRotas.TELA_TAREFAS_ROTA)
                 coroutineScope.launch {
                     drawerState.close()
                 }
@@ -119,7 +119,7 @@ private fun DrawerContent(
                 modifier = Modifier.size(40.dp),
                 tint = getColorTexto(ehRotaUm)
             )
-            Text(text = "Tela 1", fontSize = 30.sp,
+            Text(text = "Tarefas", fontSize = 30.sp,
                 color = getColorTexto(ehRotaUm))
         }
 
@@ -128,7 +128,7 @@ private fun DrawerContent(
                 containerColor = getColorMenu(ehRotaDois)
             ),
             onClick = {
-                navController.navigate(PlannerRotas.TELA_DOIS_ROTA)
+                navController.navigate(PlannerRotas.TELA_PROJETOS_ROTA)
                 coroutineScope.launch {
                     drawerState.close()
                 }
@@ -140,7 +140,7 @@ private fun DrawerContent(
                 modifier = Modifier.size(40.dp),
                 tint = getColorTexto(ehRotaDois)
             )
-            Text(text = "Tela 2", fontSize = 30.sp,
+            Text(text = "Projetos", fontSize = 30.sp,
                 color = getColorTexto(ehRotaDois))
         }
         TextButton(
@@ -148,7 +148,7 @@ private fun DrawerContent(
                 containerColor = getColorMenu(ehRotaTres)
             ),
             onClick = {
-                navController.navigate(PlannerRotas.TELA_TRES_ROTA)
+                navController.navigate(PlannerRotas.TELA_FINANCAS_ROTA)
                 coroutineScope.launch {
                     drawerState.close()
                 }
@@ -160,7 +160,7 @@ private fun DrawerContent(
                 modifier = Modifier.size(40.dp),
                 tint = getColorTexto(ehRotaTres)
             )
-            Text(text = "Tela 3", fontSize = 30.sp,
+            Text(text = "Finanças", fontSize = 30.sp,
                 color = getColorTexto(ehRotaTres))
         }
     }
