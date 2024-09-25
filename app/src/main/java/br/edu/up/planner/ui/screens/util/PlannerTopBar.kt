@@ -41,7 +41,7 @@ fun PlannerTopBar(drawerState: DrawerState){
             }
         },
         title = {
-            Text(text = "Planner", fontSize = 40.sp,
+            Text(text = "Menu", fontSize = 40.sp,
                 color = Color.White,
                 fontWeight = FontWeight(600)
             )

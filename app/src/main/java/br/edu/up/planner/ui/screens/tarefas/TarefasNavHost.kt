@@ -8,8 +8,8 @@ import androidx.navigation.compose.rememberNavController
 
 object TelaUm {
     val TELA_AFAZERES_ROUTE = "t1a"
-    val TELA_ROTINA_ROUTE = "t1b"
-    val TELA_NOTAS_ROUTE = "t1c"
+    val TELA_PROSSEGUIR_ROUTE = "t1b"
+    val TELA_FINALIZAR_ROUTE = "t1c"
 }
 
 @Composable
@@ -23,11 +23,11 @@ fun TarefasNavHost(drawerState: DrawerState) {
         composable(TelaUm.TELA_AFAZERES_ROUTE) {
             TelaAfazeres(drawerState, navCtrlBottonNav)
         }
-        composable(TelaUm.TELA_ROTINA_ROUTE) {
-            TelaRotina(drawerState, navCtrlBottonNav)
+        composable(TelaUm.TELA_PROSSEGUIR_ROUTE) {
+            TelaProsseguir(drawerState, navCtrlBottonNav)
         }
-        composable(TelaUm.TELA_NOTAS_ROUTE) {
-            TelaNotas(drawerState, navCtrlBottonNav)
+        composable(TelaUm.TELA_FINALIZAR_ROUTE) {
+            TelaFinalizar(drawerState, navCtrlBottonNav)
         }
     }
 }

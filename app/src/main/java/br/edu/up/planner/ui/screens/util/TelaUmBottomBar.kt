@@ -32,12 +32,12 @@ fun TelaUmBottomBar(navController: NavController) {
                     modifier = Modifier.size(40.dp)
                 )
             },
-            label = { Text(text = "Afazeres") }
+            label = { Text(text = "Iniciar") }
         )
         NavigationBarItem(
             selected = false,
             onClick = {
-                navController.navigate(TelaUm.TELA_ROTINA_ROUTE)
+                navController.navigate(TelaUm.TELA_PROSSEGUIR_ROUTE)
             }, icon = {
                 Icon(
                     imageVector = Icons.Default.DateRange,
@@ -45,12 +45,12 @@ fun TelaUmBottomBar(navController: NavController) {
                     modifier = Modifier.size(40.dp)
                 )
             },
-            label = { Text(text = "Rotina") }
+            label = { Text(text = "Prosseguir") }
         )
         NavigationBarItem(
             selected = false,
             onClick = {
-                navController.navigate(TelaUm.TELA_NOTAS_ROUTE)
+                navController.navigate(TelaUm.TELA_FINALIZAR_ROUTE)
             }, icon = {
                 Icon(
                     imageVector = Icons.Default.Email,
@@ -58,7 +58,7 @@ fun TelaUmBottomBar(navController: NavController) {
                     modifier = Modifier.size(40.dp)
                 )
             },
-            label = { Text(text = "Anotações") }
+            label = { Text(text = "Finalizar") }
         )
     }
 }

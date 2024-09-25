@@ -32,16 +32,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import br.edu.up.planner.ui.screens.contato.TelaContato
-import br.edu.up.planner.ui.screens.projetos.TelaProjetos
-import br.edu.up.planner.ui.screens.financas.TelaFinancas
+import br.edu.up.planner.ui.screens.faq.TelaFAQ
 import br.edu.up.planner.ui.screens.tarefas.TarefasNavHost
 import kotlinx.coroutines.launch
 
 object PlannerRotas {
     val TELA_TAREFAS_ROTA = "tela_um"
-    val TELA_PROJETOS_ROTA = "tela_dois"
-    val TELA_FINANCAS_ROTA = "tela_tres"
-    val TELA_CONTATO_ROTA = "tela_quatro"
+    val TELA_FAQ_ROTA = "tela_dois"
+    val TELA_CONTATO_ROTA = "tela_tres"
 }
 
 
@@ -69,11 +67,8 @@ fun PlannerNavDrawer(){
                 composable(PlannerRotas.TELA_TAREFAS_ROTA) {
                     TarefasNavHost(drawerState)
                 }
-                composable(PlannerRotas.TELA_PROJETOS_ROTA) {
-                    TelaProjetos(drawerState)
-                }
-                composable(PlannerRotas.TELA_FINANCAS_ROTA) {
-                    TelaFinancas(drawerState)
+                composable(PlannerRotas.TELA_FAQ_ROTA) {
+                    TelaFAQ(drawerState)
                 }
                 composable(PlannerRotas.TELA_CONTATO_ROTA) {
                     TelaContato(drawerState)
@@ -95,9 +90,8 @@ private fun DrawerContent(
     val rotaAtual = currentBack?.destination?.route ?: PlannerRotas.TELA_TAREFAS_ROTA
 
     val ehRotaUm = rotaAtual == PlannerRotas.TELA_TAREFAS_ROTA
-    val ehRotaDois = rotaAtual == PlannerRotas.TELA_PROJETOS_ROTA
-    val ehRotaTres = rotaAtual == PlannerRotas.TELA_FINANCAS_ROTA
-    val ehRotaQuatro = rotaAtual == PlannerRotas.TELA_CONTATO_ROTA
+    val ehRotaDois = rotaAtual == PlannerRotas.TELA_FAQ_ROTA
+    val ehRotaTres = rotaAtual == PlannerRotas.TELA_CONTATO_ROTA
 
     Column(
         modifier = Modifier
@@ -134,7 +128,7 @@ private fun DrawerContent(
                 containerColor = getColorMenu(ehRotaDois)
             ),
             onClick = {
-                navController.navigate(PlannerRotas.TELA_PROJETOS_ROTA)
+                navController.navigate(PlannerRotas.TELA_FAQ_ROTA)
                 coroutineScope.launch {
                     drawerState.close()
                 }
@@ -146,29 +140,8 @@ private fun DrawerContent(
                 modifier = Modifier.size(40.dp),
                 tint = getColorTexto(ehRotaDois)
             )
-            Text(text = "Projetos", fontSize = 30.sp,
+            Text(text = "FAQ", fontSize = 30.sp,
                 color = getColorTexto(ehRotaDois))
-        }
-
-        TextButton(
-            colors = ButtonDefaults.buttonColors(
-                containerColor = getColorMenu(ehRotaTres)
-            ),
-            onClick = {
-                navController.navigate(PlannerRotas.TELA_FINANCAS_ROTA)
-                coroutineScope.launch {
-                    drawerState.close()
-                }
-            }) {
-            Icon(
-                //imageVector = Icons.Default.Call,
-                painter = painterResource(id = R.drawable.checklist),
-                contentDescription = "c",
-                modifier = Modifier.size(40.dp),
-                tint = getColorTexto(ehRotaTres)
-            )
-            Text(text = "Finanças", fontSize = 30.sp,
-                color = getColorTexto(ehRotaTres))
         }
 
         TextButton(
@@ -186,10 +159,10 @@ private fun DrawerContent(
                 painter = painterResource(id = R.drawable.checklist),
                 contentDescription = "c",
                 modifier = Modifier.size(40.dp),
-                tint = getColorTexto(ehRotaQuatro)
+                tint = getColorTexto(ehRotaTres)
             )
             Text(text = "Contato", fontSize = 30.sp,
-                color = getColorTexto(ehRotaQuatro))
+                color = getColorTexto(ehRotaTres))
         }
     }
 }
