@@ -119,7 +119,7 @@ private fun DrawerContent(
                 modifier = Modifier.size(40.dp),
                 tint = getColorTexto(ehRotaUm)
             )
-            Text(text = "Tarefas", fontSize = 30.sp,
+            Text(text = "Início", fontSize = 30.sp,
                 color = getColorTexto(ehRotaUm))
         }
 
