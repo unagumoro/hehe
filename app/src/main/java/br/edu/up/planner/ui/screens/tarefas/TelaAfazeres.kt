@@ -18,19 +18,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import br.edu.up.planner.ui.screens.util.PlannerTopBar
 import br.edu.up.planner.ui.screens.util.TelaUmBottomBar
 
-object TarefasRota {
-    val TELA_LISTAR_AFAZERES_ROTA = "listar_afazeres"
-    val TELA_INCLUIR_AFAZER_ROTA = "incluir_afazer"
-}
 
 
 @Composable
@@ -39,81 +36,33 @@ fun TelaAfazeres(
     navCtrlBottomNav: NavController
 ) {
 
-    var afazeres = mutableListOf(
-        Afazer(
-            titulo = "Comprar um carro",
-            descricao = "Visitar concessionárias",
-            id = 1
-        ),
-        Afazer(
-            titulo = "Lavar roupas",
-            descricao = "Lavar roupas pela manhã",
-            id = 2
-        )
-    )
-
-    val navCtrlTarefas = rememberNavController()
-
-
     Scaffold(
-        topBar = { PlannerTopBar(drawerState) },
-        content = { padding ->  padding
-            NavHost(
-                navController = navCtrlTarefas,
-                startDestination = TarefasRota.TELA_LISTAR_AFAZERES_ROTA)
-            {
-                composable(TarefasRota.TELA_LISTAR_AFAZERES_ROTA) {
-                    TelaListagemAfazeres(afazeres)
-                }
-                composable(TarefasRota.TELA_INCLUIR_AFAZER_ROTA) {
-                    Column(modifier = Modifier.fillMaxSize()) {
-                        Spacer(modifier = Modifier.height(200.dp))
-                        Text(text = "TELA DE INCLUIR AFAZER")
-                    }
-
-                }
-            }
-
-
+        topBar = {
+            PlannerTopBar(drawerState)
         },
-        floatingActionButton = { FloatButton() },
+        content = { iPad ->
+            iPad
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "RecurSê",
+                    Modifier.padding(30.dp),
+                    fontSize = 100.sp,
+                    fontFamily = FontFamily.SansSerif,
+                    color = Color.Black
+                )
+                Text(
+                    text = "Não se preocupe, fazemos seu recurso para você!",
+                    Modifier.padding(30.dp),
+                    fontSize = 20.sp,
+                    color = Color.Blue
+                )
+            }
+        },
         bottomBar = { TelaUmBottomBar(navCtrlBottomNav) }
     )
 }
-
-@Composable
-private fun TelaListagemAfazeres(afazeres: MutableList<Afazer>) {
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        items(afazeres) { afazer ->
-            Text(
-                text = afazer.titulo,
-                Modifier.padding(20.dp),
-                fontSize = 20.sp
-            )
-        }
-    }
-}
-
-data class Afazer(
-    var titulo: String,
-    var descricao: String,
-    var concluido: Boolean = false,
-    var id: Int? = null
-)
-
-
-@Composable
-private fun FloatButton() {
-    FloatingActionButton(onClick = { }) {
-        Icon(
-            imageVector = Icons.Default.Add,
-            contentDescription = "+"
-        )
-    }
-}
-
 

@@ -31,6 +31,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import br.edu.up.planner.ui.screens.contato.TelaContato
 import br.edu.up.planner.ui.screens.projetos.TelaProjetos
 import br.edu.up.planner.ui.screens.financas.TelaFinancas
 import br.edu.up.planner.ui.screens.tarefas.TarefasNavHost
@@ -40,6 +41,7 @@ object PlannerRotas {
     val TELA_TAREFAS_ROTA = "tela_um"
     val TELA_PROJETOS_ROTA = "tela_dois"
     val TELA_FINANCAS_ROTA = "tela_tres"
+    val TELA_CONTATO_ROTA = "tela_quatro"
 }
 
 
@@ -73,6 +75,9 @@ fun PlannerNavDrawer(){
                 composable(PlannerRotas.TELA_FINANCAS_ROTA) {
                     TelaFinancas(drawerState)
                 }
+                composable(PlannerRotas.TELA_CONTATO_ROTA) {
+                    TelaContato(drawerState)
+                }
             }
         }
     )
@@ -92,6 +97,7 @@ private fun DrawerContent(
     val ehRotaUm = rotaAtual == PlannerRotas.TELA_TAREFAS_ROTA
     val ehRotaDois = rotaAtual == PlannerRotas.TELA_PROJETOS_ROTA
     val ehRotaTres = rotaAtual == PlannerRotas.TELA_FINANCAS_ROTA
+    val ehRotaQuatro = rotaAtual == PlannerRotas.TELA_CONTATO_ROTA
 
     Column(
         modifier = Modifier
@@ -143,6 +149,7 @@ private fun DrawerContent(
             Text(text = "Projetos", fontSize = 30.sp,
                 color = getColorTexto(ehRotaDois))
         }
+
         TextButton(
             colors = ButtonDefaults.buttonColors(
                 containerColor = getColorMenu(ehRotaTres)
@@ -162,6 +169,27 @@ private fun DrawerContent(
             )
             Text(text = "Finanças", fontSize = 30.sp,
                 color = getColorTexto(ehRotaTres))
+        }
+
+        TextButton(
+            colors = ButtonDefaults.buttonColors(
+                containerColor = getColorMenu(ehRotaTres)
+            ),
+            onClick = {
+                navController.navigate(PlannerRotas.TELA_CONTATO_ROTA)
+                coroutineScope.launch {
+                    drawerState.close()
+                }
+            }) {
+            Icon(
+                //imageVector = Icons.Default.Call,
+                painter = painterResource(id = R.drawable.checklist),
+                contentDescription = "c",
+                modifier = Modifier.size(40.dp),
+                tint = getColorTexto(ehRotaQuatro)
+            )
+            Text(text = "Contato", fontSize = 30.sp,
+                color = getColorTexto(ehRotaQuatro))
         }
     }
 }

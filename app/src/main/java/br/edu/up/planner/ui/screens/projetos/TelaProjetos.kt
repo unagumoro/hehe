@@ -29,9 +29,22 @@ fun TelaProjetos(drawerState: DrawerState) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Tela PROJETOS",
+                    text = "Escolha sua infração\n" +
+                            "Selecione o código da sua infração e em seguida clique em \"Prosseguir\"\n",
                     Modifier.padding(30.dp),
-                    fontSize = 40.sp
+                    fontSize = 15.sp
+                )
+                Text(
+                    text = "Escolha sua infração\n" +
+                            "Selecione o código da sua infração e em seguida clique em \"Prosseguir\"\n",
+                    Modifier.padding(30.dp),
+                    fontSize = 15.sp
+                )
+                Text(
+                    text = "Escolha sua infração\n" +
+                            "Selecione o código da sua infração e em seguida clique em \"Prosseguir\"\n",
+                    Modifier.padding(30.dp),
+                    fontSize = 15.sp
                 )
             }
         }
